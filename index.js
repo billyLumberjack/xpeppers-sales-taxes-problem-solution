@@ -1,4 +1,15 @@
 const fs = require('fs')
+const keywordsFiles = ["books.txt", "foods.txt", "madicines.txt"];
+
+function isBasicSalesTaxApplicable(){
+    var keywords = [];
+    for(file in keywordsFiles){
+        keywords = fs.readFileSync(file, "utf8");
+
+        console.log(keywords);
+
+    }
+}
 
 function getItemsListFromTxt(data){
     var res = [];
@@ -9,8 +20,6 @@ function getItemsListFromTxt(data){
         obj["price"] = line.match(/[0-9]*.[0-9]*$/g)[0];
         obj["quantity"] = line.match(/^[0-9]*/g)[0];
         obj["name"] = line.replace(/at/g,"").replace(obj["price"],"").replace(obj["quantity"],"").trim();
-
-        console.log(obj);
     }
     return res;
 }
@@ -20,5 +29,8 @@ fs.readFile('input.txt','utf8', (err, data) => {
       console.error(err)
       return
     }
+
     getItemsListFromTxt(data);
+    isBasicSalesTaxApplicable();
+
 });
