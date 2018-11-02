@@ -12,7 +12,7 @@ function computeTaxes(objList){
         if(obj.importDutyApplicable){
             totalTaxesAmount += (obj.price * 0.05);
         }
-        obj["taxes"] = Number((Math.ceil(totalTaxesAmount * 20) / 20).toFixed(2));
+        obj["taxes"] = Math.ceil(totalTaxesAmount / 0.05) * 0.05;
     }
 };
 
@@ -20,6 +20,9 @@ function printOutput(objList, tt, p){
     var total = 0, totalTaxes = 0;
     for(var obj of objList){
         var price = (obj.price + obj.taxes) * obj.quantity;
+
+        price = Math.round(price * 100) / 100;
+
         total += price;
         totalTaxes += (obj.taxes * obj.quantity);
 
@@ -79,12 +82,9 @@ fs.readFile('input.txt','utf8', (err, data) => {
     }
 
     var itemList = getItemsListFromTxt(data);
-
     setTaxFields(itemList);
     computeTaxes(itemList);
-
     printOutput(itemList);
-
     //price = computeTotalPrice(itemList, taxes);
     //printOutput(itemList, taxes, price);
 
