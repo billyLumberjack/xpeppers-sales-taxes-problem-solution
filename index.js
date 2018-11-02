@@ -2,28 +2,32 @@ const fs = require('fs')
 var path = require('path')
 const keywordsFiles = ["books.txt", "foods.txt", "medicines.txt"];
 
-function computeTotalTaxes(objList){
-    var totalTaxesAmount = 0;
-
+function computeTaxes(objList){
     for(var obj of objList){
+        var totalTaxesAmount = 0;
+
         if(obj.taxApplicable){
-            totalTaxesAmount += (obj.price * 0.1 * obj.quantity);
+            totalTaxesAmount += (obj.price * 0.1);
         }
         if(obj.importDutyApplicable){
-            totalTaxesAmount += (obj.price * 0.05 * obj.quantity);
+            totalTaxesAmount += (obj.price * 0.05);
         }
+        obj["taxes"] = Number((Math.ceil(totalTaxesAmount * 20) / 20).toFixed(2));
     }
-    return (Math.ceil(totalTaxesAmount * 20) / 20).toFixed(2); //???!?!?!??!?!
 };
 
-function computeTotalPrice(objList, tt){
-    var res = 0;
+function printOutput(objList, tt, p){
+    var total = 0, totalTaxes = 0;
     for(var obj of objList){
-        res += obj.price;
+        var price = (obj.price + obj.taxes) * obj.quantity;
+        total += price;
+        totalTaxes += (obj.taxes * obj.quantity);
+
+        console.log(obj.quantity + " " + obj.name + ": " + price);
     }
-    return res + tt;
+    console.log(total);
+    console.log(totalTaxes);
 };
-function printOutput(objList, tt, p){};
 
 function setTaxFields(objList){
     for(var obj of objList){
@@ -75,14 +79,13 @@ fs.readFile('input.txt','utf8', (err, data) => {
     }
 
     var itemList = getItemsListFromTxt(data);
-    var taxes = 0;
-    var price = 0;
 
     setTaxFields(itemList);
-    taxes = computeTotalTaxes(itemList);
-    price = computeTotalPrice(itemList, taxes);
+    computeTaxes(itemList);
+
     printOutput(itemList);
 
-    console.log(taxes);
-    console.log(itemList);
+    //price = computeTotalPrice(itemList, taxes);
+    //printOutput(itemList, taxes, price);
+
 });
