@@ -1,0 +1,19 @@
+{
+  "name": "sales_taxes_problem",
+  "version": "1.0.0",
+  "description": "XPeppers sales taxes problem solution from Samuele Malavasi. For problem definition please visit https://github.com/xpeppers/sales-taxes-problem",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/billyLumberjack/xpeppers-sales-taxes-problem-solution.git"
+  },
+  "author": "Samuele Malavasi <samuele.malavasi@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/billyLumberjack/xpeppers-sales-taxes-problem-solution/issues"
+  },
+  "homepage": "https://github.com/billyLumberjack/xpeppers-sales-taxes-problem-solution#readme"
+}
