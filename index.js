@@ -28,8 +28,8 @@ function printOutput(objList, tt, p){
 
         console.log(obj.quantity + " " + obj.name + ": " + price);
     }
-    console.log(total);
-    console.log(totalTaxes);
+    console.log("Total: " + total);
+    console.log("Sales Taxes: " + totalTaxes);
 };
 
 function setTaxFields(objList){
@@ -85,7 +85,4 @@ fs.readFile('input.txt','utf8', (err, data) => {
     setTaxFields(itemList);
     computeTaxes(itemList);
     printOutput(itemList);
-    //price = computeTotalPrice(itemList, taxes);
-    //printOutput(itemList, taxes, price);
-
 });
