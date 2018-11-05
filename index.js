@@ -75,14 +75,23 @@ function getItemsListFromTxt(data){
     return res;
 }
 
-fs.readFile('input.txt','utf8', (err, data) => {
-    if (err) {
-      console.error(err)
-      return
-    }
+function readAndProcessFile(path){
+    fs.readFile(process.argv[2],'utf8', (err, data) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+    
+        var itemList = getItemsListFromTxt(data);
+        setTaxFields(itemList);
+        computeTaxes(itemList);
+        printOutput(itemList);
+    });
+}
 
-    var itemList = getItemsListFromTxt(data);
-    setTaxFields(itemList);
-    computeTaxes(itemList);
-    printOutput(itemList);
-});
+if(!process.argv[2]){
+    console.error("Please add input file to the arguments");
+    return;
+}else{
+    readAndProcessFile(process.argv[2]);
+}
