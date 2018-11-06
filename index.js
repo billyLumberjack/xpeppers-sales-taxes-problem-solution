@@ -18,6 +18,8 @@ function computeTaxes(objList){
 
 function printOutput(objList, tt, p){
     var total = 0, totalTaxes = 0;
+    var str = "";
+
     for(var obj of objList){
         var price = (obj.price + obj.taxes) * obj.quantity;
 
@@ -26,10 +28,15 @@ function printOutput(objList, tt, p){
         total += price;
         totalTaxes += (obj.taxes * obj.quantity);
 
-        console.log(obj.quantity + " " + obj.name + ": " + price);
+        //console.log(obj.quantity + " " + obj.name + ": " + price);
+        str += obj.quantity + " " + obj.name + ": " + price + "\n";
     }
-    console.log("Total: " + total);
-    console.log("Sales Taxes: " + totalTaxes);
+    //console.log("Total: " + total);
+    //console.log("Sales Taxes: " + totalTaxes);
+
+    str += "Sales Taxes: " + totalTaxes + "\n";
+    str += "Total: " + total;
+    return str;
 };
 
 function setTaxFields(objList){
@@ -75,7 +82,15 @@ function getItemsListFromTxt(data){
     return res;
 }
 
-function readAndProcessFile(path){
+exports.getItemsListFromTxt = getItemsListFromTxt;
+exports.setTaxFields = setTaxFields;
+exports.computeTaxes = computeTaxes;
+exports.printOutput = printOutput;
+
+if(!process.argv[2]){
+    console.error("Please add input file to the arguments");
+    return;
+}else{
     fs.readFile(process.argv[2],'utf8', (err, data) => {
         if (err) {
           console.error(err)
@@ -85,13 +100,8 @@ function readAndProcessFile(path){
         var itemList = getItemsListFromTxt(data);
         setTaxFields(itemList);
         computeTaxes(itemList);
-        printOutput(itemList);
+        console.log(
+            printOutput(itemList)
+        );
     });
-}
-
-if(!process.argv[2]){
-    console.error("Please add input file to the arguments");
-    return;
-}else{
-    readAndProcessFile(process.argv[2]);
 }

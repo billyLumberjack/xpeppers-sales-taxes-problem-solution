@@ -4,7 +4,7 @@
   "description": "XPeppers sales taxes problem solution from Samuele Malavasi. For problem definition please visit https://github.com/xpeppers/sales-taxes-problem",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
