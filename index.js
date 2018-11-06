@@ -28,11 +28,8 @@ function printOutput(objList, tt, p){
         total += price;
         totalTaxes += (obj.taxes * obj.quantity);
 
-        //console.log(obj.quantity + " " + obj.name + ": " + price);
         str += obj.quantity + " " + obj.name + ": " + price + "\n";
     }
-    //console.log("Total: " + total);
-    //console.log("Sales Taxes: " + totalTaxes);
 
     str += "Sales Taxes: " + totalTaxes + "\n";
     str += "Total: " + total;
